@@ -1,0 +1,27 @@
+{
+  "name": "easytestnodeapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "scripts": {
+    "test": "jest --watchAll --verbose --detectOpenHandles",
+    "test:watch": "jest --watch"
+  },
+  "author": "Tshweu Sephiri",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "luxon": "^3.5.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
