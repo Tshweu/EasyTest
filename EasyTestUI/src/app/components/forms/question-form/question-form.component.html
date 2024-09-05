@@ -1,0 +1,101 @@
+<form
+  [formGroup]="questionForm"
+  style="display: grid; grid-template-rows: auto auto auto"
+>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      name="description"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Question Type</mat-label>
+    <mat-select formControlName="questionType" name="questionType" (selectionChange)="setAnswers($event.value)">
+      @for (type of questionTypesList; track type) {
+      <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  @if(questionForm.value.questionType === questionTypes.MultipleChoice){
+  <ng-container formArrayName="answers">
+    @for(answerForm of answers.controls; track i;let i = $index){
+    <div
+      [formGroupName]="i"
+      class="wrapper"
+      style="
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto;
+      "
+    >
+      <mat-form-field>
+        <mat-label>Answer {{ i + 1 }}</mat-label>
+        <textarea matInput formControlName="description" name="description">
+        </textarea>
+      </mat-form-field>
+      <mat-checkbox formControlName="isCorrect" name="isCorrect"
+        >Correct Answer</mat-checkbox
+      >
+    </div>
+    }
+  </ng-container>
+  <button style="margin-bottom: 10px" mat-raised-button (click)="addAnswer()">
+    Add Answer
+  </button>
+  } @if(questionForm.value.questionType === questionTypes.MissingWord){
+  <ng-container formArrayName="answers">
+    @for(answerForm of answers.controls; track i;let i = $index){
+    <div
+      [formGroupName]="i"
+      class="wrapper"
+      style="
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto;
+      "
+    >
+      <mat-form-field>
+        <mat-label>Answer {{ i + 1 }}</mat-label>
+        <textarea matInput formControlName="description" name="description">
+        </textarea>
+      </mat-form-field>
+      <button mat-icon-button (click)="deleteCondition(i)">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="delete icon"
+          fontIcon="delete"
+        ></mat-icon>
+      </button>
+    </div>
+    }
+  </ng-container>
+  <button style="margin-bottom: 10px" mat-raised-button (click)="addAnswer(true)">
+    Add Answer
+  </button>
+  } @if(questionForm.value.questionType === questionTypes.TrueFalse){
+  <ng-container formArrayName="answers">
+    @for(answerForm of answers.controls; track answerForm;let i = $index){
+    <div
+      [formGroupName]="i"
+      class="wrapper"
+      style="
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto auto;
+      "
+    >
+      <mat-radio-group
+        aria-label="Select an option"
+        formControlName="description"
+      >
+        <mat-radio-button value="True">True</mat-radio-button>
+        <mat-radio-button value="False">False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    }
+  </ng-container>
+  }
+  <button mat-raised-button (click)="submit()">Submit</button>
+</form>
