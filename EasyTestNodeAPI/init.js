@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 const { hashPassword } = require('./routes/helpers/encrypt');
-var con = mysql.createConnection({
+const con = mysql.createConnection({
     host: "localhost",
     user: "vps",
     password: "dev@vintage",
